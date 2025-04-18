@@ -1,0 +1,40 @@
+
+services:
+  database-service:
+    image: postgres:latest
+    container_name: db_psql
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+    volumes:
+     - dbpsql:/var/lib/postgresql/data
+     - dbbackup:/dbbackup
+     - ./dbbackup:/dbbackup
+    networks:
+      - db-network
+    #backup data when starting service
+    entrypoint: /dbbackup/backup.sh
+  admin-panel-service: 
+    image: adminer
+    container_name: db_admin_panel
+    depends_on:
+      - database-service
+    ports:
+      - 8050:8080
+    expose:
+      - 8050
+    networks:
+      - db-network
+    environment:
+      ADMINER_DEFAULT_DRIVER: pgsql
+      ADMINER_DEFAULT_SERVER: db_psql
+networks:
+  db-network:
+volumes:
+  dbpsql:
+  dbbackup:
