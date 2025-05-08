@@ -13,13 +13,12 @@ services:
     volumes:
       - dbpsql:/var/lib/postgresql/data
       - ./dbbackup:/dbbackup
+      - ./zabbix-agent/dbinit:/docker-entrypoint-initdb.d
     networks:
       - db-network
-    #backup data when starting service
-    entrypoint: /dbbackup/backup.sh
 
   db-psql-zabbix-agent:
-    image: zabbix/zabbix-agent:latest
+    image: zabbix/zabbix-agent2:latest
     container_name: db_psql_zabbix_agent
     environment:
       ZBX_HOSTNAME: "db_psql"
