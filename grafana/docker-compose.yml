@@ -4,10 +4,7 @@ services:
     image: prometheuscommunity/postgres-exporter:latest
     container_name: postgres-exporter
     environment:
-      DATA_SOURCE_URI: db_psql:5432?sslmode=disable
-      DATA_SOURCE_USER: ${POSTGRES_EXPORTER_USER}
-      DATA_SOURCE_PASSWORD: ${POSTGRES_EXPORTER_PASSWORD}
-      DATA_SOURCE_NAME: ${POSTGRES_DB}
+      DATA_SOURCE_NAME: postgres://${POSTGRES_EXPORTER_USER}:${POSTGRES_EXPORTER_PASSWORD}@db_psql/${POSTGRES_DB}?sslmode=disable
     ports:
       - "9187:9187"
     networks:
@@ -38,7 +35,7 @@ services:
       - "3000:3000"
     environment:
       GF_SECURITY_ADMIN_USER: admin
-      GF_SECURITY_ADMIN_PASSWORD: your_grafana_password
+      GF_SECURITY_ADMIN_PASSWORD: pass
     volumes:
       - grafana_data:/var/lib/grafana
       - ./grafana/conf/provisioning:/etc/grafana/provisioning/
