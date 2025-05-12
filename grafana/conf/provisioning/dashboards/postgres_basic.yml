@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: 'PostgreSQL Basic Dashboards'
+    orgId: 1
+    folder: 'PostgreSQL_Basics'
+    type: 'file'
+    disableDeletion: false
+    editable: true
+    options:
+      path: /etc/grafana/provisioning/dashboards/postgres_basic

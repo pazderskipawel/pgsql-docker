@@ -12,13 +12,10 @@ services:
     expose:
       - 5432
     volumes:
-     - dbpsql:/var/lib/postgresql/data
-     - dbbackup:/dbbackup
-     - ./dbbackup:/dbbackup
+     - dbpsql:/var/lib/postgresql/
+     - ./prometheus/conf/dbinit:/docker-entrypoint-initdb.d
     networks:
       - db-network
-    #backup data when starting service
-    entrypoint: /dbbackup/backup.sh
   admin-panel-service: 
     image: adminer
     container_name: db_admin_panel
@@ -37,4 +34,3 @@ networks:
   db-network:
 volumes:
   dbpsql:
-  dbbackup:
