@@ -1,5 +1,5 @@
 
-This repository is an learning sandbox about docker compose which uses postgresql database
+This repository is a learning sandbox about docker compose which uses postgresql database
 
 It contains the following key components:
 - `docker-compose.yml` Starts **postrgesql** image and **adminer** control panel
